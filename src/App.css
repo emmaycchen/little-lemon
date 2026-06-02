@@ -1,38 +1,527 @@
-.App {
+/* ===== LITTLE LEMON COLOR PALETTE ===== */
+:root {
+  --green:   #495E57;   /* Primary Green — hero 背景、hover */
+  --yellow:  #F4CE14;   /* Primary Yellow — 按鈕 */
+  --salmon:  #EE9972;   /* Secondary Salmon — 價格 */
+  --peach:   #FBDABB;   /* Secondary Peach — testimonial card 背景 */
+  --cream:   #EDEFEE;   /* Highlight Light — footer、section 背景 */
+  --dark:    #333333;   /* 深色文字 */
+  --white:   #FFFFFF;
+}
+
+/* ===== RESET & BASE ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Karla', sans-serif;
+  color: #333333;
+  background-color: #EDEFEE;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3 {
+  font-family: 'Markazi Text', serif;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ===== HEADER ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background-color: #EDEFEE;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header img {
+  height: 50px;
+}
+
+/* ===== NAV ===== */
+nav ul {
+  display: flex;
+  gap: 24px;
+}
+
+nav ul li a {
+  font-weight: 600;
+  font-size: 16px;
+  color: #333333;
+  transition: color 0.2s;
+}
+
+nav ul li a:hover {
+  color: #F4CE14;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #495E57;
+  padding: 48px 40px;
+  gap: 40px;
+}
+
+.hero div {
+  max-width: 480px;
+}
+
+.hero h1 {
+  font-size: 64px;
+  color: #F4CE14;
+  line-height: 1;
+}
+
+.hero h2 {
+  font-size: 40px;
+  color: #EDEFEE;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  font-size: 18px;
+  color: #EDEFEE;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+.hero img {
+  width: 300px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.hero button {
+  background-color: #F4CE14;
+  color: #333333;
+  border: none;
+  padding: 14px 28px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.hero button:hover {
+  background-color: #e0b800;
+}
+
+/* ===== SPECIALS SECTION ===== */
+.specials {
+  padding: 48px 40px;
+  background-color: #EDEFEE;
+}
+
+.specials-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.specials-header h2 {
+  font-size: 40px;
+  color: #333333;
+}
+
+.specials-header button {
+  background-color: #F4CE14;
+  color: #333333;
+  border: none;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.specials-header button:hover {
+  background-color: #e0b800;
+}
+
+.specials-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* ===== CARD ===== */
+.card {
+  background-color: #EDEFEE;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.card > img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 16px 8px;
+}
+
+.card-title-row h3 {
+  font-size: 22px;
+  color: #333333;
+}
+
+.card-title-row .price {
+  font-size: 16px;
+  font-weight: 700;
+  color: #EE9972;
+}
+
+.card p {
+  padding: 0 16px 16px;
+  font-size: 15px;
+  color: #666666;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.card a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 15px;
+  color: #333333;
+  border-top: 1px solid #eeeeee;
+  transition: color 0.2s;
+}
+
+.card a:hover {
+  color: #495E57;
+}
+
+.delivery-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ===== BICYCLE ICON ===== */
+.delivery-icon {
+  width: 24px;         /* 固定小尺寸 */
+  height: 24px;
+  object-fit: contain;
+}
+
+/* ===== TESTIMONIALS SECTION ===== */
+.testimonials {
+  padding: 48px 40px;
+  background-color: #EDEFEE;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.testimonials h2 {
+  font-size: 40px;
+  color: #333333;
+  margin-bottom: 32px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.testimonials-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.testimonial-card{
+  background-color: #FBDABB;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.testimonial-card > img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 12px;
+}
+
+.testimonial-card h3 {
+  font-size: 18px;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+.stars {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.star-icon {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.testimonial-card p {
+  font-size: 15px;
+  color: #333333;
+  line-height: 1.6;
+}
+
+/* ===== ABOUT SECTION ===== */
+.about {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 48px 80px;
+  background-color: #ffffff;
+  gap: 0;
+}
+
+.about div:first-child {
+  max-width: 45%;
+  flex: 1;
+}
+
+.about h2 {
+  font-size: 56px;
+  color: #333333;
+  line-height: 1;
+}
+
+.about h3 {
+  font-size: 36px;
+  color: #495E57;
+  margin-bottom: 16px;
+}
+
+.about p {
+  font-size: 16px;
+  color: #666666;
+  line-height: 1.7;
+}
+
+.about-images {
+  flex: 1;
+  position: relative;
+  height: 420px;
+  max-width: 45%;
+}
+
+.about-images img {
+  width: 260px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 16px;
+  position: absolute;
+}
+
+.about-images img:first-child {
+  position: absolute;
+  width: 75%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 16px;
+  top: 0;
+  left: 0;
+}
+
+.about-images img:last-child {
+  position: absolute;
+  width: 75%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 16px;
+  bottom: 0;
+  right: 0;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background-color: #EDEFEE;
+  padding: 48px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+footer img {
+  height: 60px;
+}
+
+footer h4 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 16px;
+}
+
+footer ul {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  gap: 10px;
 }
 
-.App-link {
-  color: #61dafb;
+footer ul li a,
+footer address ul li {
+  font-size: 15px;
+  color: #555555;
+  font-style: normal;
+  transition: color 0.2s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+footer ul li a:hover {
+  color: #495E57;
+}
+
+/* ===== RESPONSIVE ===== */
+
+/* Tablet — 768px 以下 */
+@media (max-width: 768px) {
+
+  header {
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 20px;
   }
-  to {
-    transform: rotate(360deg);
+
+  nav ul {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 32px 20px;
+    text-align: center;
+  }
+
+  .hero img {
+    width: 100%;
+    height: 220px;
+  }
+
+  .hero h1 { font-size: 48px; }
+  .hero h2 { font-size: 32px; }
+
+  .specials {
+    padding: 32px 20px;
+  }
+
+  .specials-cards {
+    grid-template-columns: 1fr;  /* 單欄 */
+  }
+
+  .testimonials {
+    padding: 32px 20px;
+  }
+
+  .testimonials-cards {
+    grid-template-columns: 1fr;  /* 單欄 */
+  }
+
+  .about {
+    flex-direction: column;
+    padding: 32px 20px;
+  }
+
+  .about div:first-child {
+    max-width: 100%;
+  }
+
+  .about-images {
+    position: relative;
+    width: 80%;
+    margin: 24px auto 0;
+    height: auto;
+  }
+
+  .about-images img {
+    max-width: 100%;
+  }
+
+  .about-images img:first-child {
+    position: relative;
+    display: block;
+    width: 85%;
+    height: 180px;
+    object-fit: cover;
+    margin-left: 0;
+    border-radius: 16px;
+    top: auto;
+    left: auto;
+    transform: none;
+  }
+
+  .about-images img:last-child {
+    position: relative;
+    display: block;
+    width: 85%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 16px;
+    margin-left: auto;
+    margin-top: -40px;
+    bottom: auto;
+    right: auto;
+    transform: none;
+  }
+
+  footer {
+    grid-template-columns: 1fr 1fr;  /* 兩欄 */
+    padding: 32px 20px;
   }
 }
+
+/* Mobile — 480px 以下 */
+@media (max-width: 480px) {
+
+  .hero h1 { font-size: 36px; }
+  .hero h2 { font-size: 26px; }
+  .hero p  { font-size: 15px; }
+
+  .specials-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .testimonials-cards {
+    grid-template-columns: 1fr;
+  }
+
+  footer {
+    grid-template-columns: 1fr;  /* 單欄 */
+  }
+}
+
+
