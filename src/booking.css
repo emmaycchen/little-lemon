@@ -1,0 +1,508 @@
+/* ════════════════════════════════════════════════════
+   BOOKING.CSS  —  complete file, replace existing
+   ════════════════════════════════════════════════════ */
+
+/* ─── BOOKING NAV ───────────────────────────────────── */
+.booking-nav {
+  background: #ffffff;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  padding: 0 2rem;
+}
+.booking-nav__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.booking-nav__logo-img {
+  height: 50px;
+  width: auto;
+}
+.booking-nav__links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.booking-nav__links a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+  text-decoration: none;
+}
+.booking-nav__links a:hover { color: #495E57; }
+
+/* ─── BOOKING HERO ──────────────────────────────────── */
+.booking-hero {
+  height: 220px;
+  background-color: #495E57;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.booking-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+.booking-hero h1 {
+  position: relative;
+  z-index: 1;
+  color: #F4CE14;
+  font-family: 'Markazi Text', Georgia, serif;
+  font-size: clamp(2.5rem, 6vw, 4rem);
+}
+
+/* ─── BOOKING PAGE WRAPPER — full width white ───────── */
+.booking-page {
+  background: #ffffff;
+  width: 100%;
+  padding: 3rem 2rem 5rem;
+}
+.booking-page__intro {
+  max-width: 800px;
+  margin: 0 auto 2rem;
+  font-size: 1rem;
+  color: #333;
+}
+.booking-page__section {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+}
+.booking-page__label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: #1D1B20;
+}
+
+/* ─── DATE + TIME SIDE BY SIDE ──────────────────────── */
+.booking-page__datetime {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* ─── CALENDAR ──────────────────────────────────────── */
+.calendar {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 1rem;
+  background: #ffffff;
+}
+.calendar__nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 0.75rem;
+}
+.calendar__nav button {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  line-height: 1;
+}
+.calendar__nav button:hover { background: #EDEFEE; }
+
+/* THE KEY RULE — 7 equal columns */
+.calendar__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+.calendar__day-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #999;
+  padding: 6px 0 4px;
+}
+.calendar__cell {
+  font-size: 0.85rem;
+  padding: 7px 2px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.15s;
+  line-height: 1;
+}
+.calendar__cell:hover:not(.calendar__cell--muted) {
+  background: #EDEFEE;
+}
+.calendar__cell--muted {
+  color: #ccc;
+  cursor: default;
+}
+.calendar__cell--selected {
+  background: #F4CE14;
+  font-weight: 700;
+  color: #1D1B20;
+}
+
+/* ─── TIME SLOTS ────────────────────────────────────── */
+.booking-page__timeslots h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #1D1B20;
+}
+.timeslot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+.timeslot {
+  padding: 0.65rem 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  font-family: inherit;
+}
+.timeslot:hover { border-color: #495E57; }
+.timeslot--selected {
+  background: #495E57;
+  color: #ffffff;
+  border-color: #495E57;
+  font-weight: 700;
+}
+
+/* ─── CONFIRMED DATE/TIME BOX ───────────────────────── */
+.booking-page__confirmed-dt {
+  margin-top: 1.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+}
+.confirmed-dt__label {
+  font-size: 0.78rem;
+  color: #888;
+  margin-bottom: 0.35rem;
+}
+.confirmed-dt__value {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* ─── FORM BODY — centred column ────────────────────── */
+.booking-form__body {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* ─── FORM GROUPS ───────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+.form-group label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #1D1B20;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background: #f5f5f5;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  width: 100%;
+  font-family: inherit;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #495E57;
+  background: #ffffff;
+}
+
+/* ─── GUESTS + OCCASION 2-col ───────────────────────── */
+.booking-page__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+/* ─── SUBMIT BUTTON ─────────────────────────────────── */
+.booking-form__submit {
+  text-align: center;
+  margin-top: 2rem;
+}
+.btn--yellow {
+  background: #F4CE14;
+  color: #1D1B20;
+  border: none;
+  border-radius: 16px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-family: inherit;
+}
+.btn--yellow:hover { opacity: 0.85; }
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 700px) {
+  .booking-page__datetime { grid-template-columns: 1fr; }
+  .booking-page__row      { grid-template-columns: 1fr; }
+  .booking-nav__links     { display: none; }
+}
+
+
+/* ════════════════════════════════════════════════════
+   CONFIRMATION PAGE
+   ════════════════════════════════════════════════════ */
+
+.confirmation-page {
+  background: #ffffff;
+  width: 100%;
+  padding: 4rem 2rem 5rem;
+}
+
+.confirmation-page__title {
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1D1B20;
+  margin-bottom: 3rem;
+}
+
+.confirmation-page__table {
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.confirmation-page__row {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.confirmation-page__key {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #1D1B20;
+}
+
+.confirmation-page__val {
+  font-size: 1.05rem;
+  color: #333;
+}
+
+/* ─── ACTION BUTTONS ────────────────────────────────── */
+.confirmation-page__actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+/* Confirm — yellow fill (same as booking) */
+.btn--confirm {
+  background: #F4CE14;
+  color: #1D1B20;
+  border: 2px solid #F4CE14;
+  border-radius: 16px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  min-width: 140px;
+  transition: opacity 0.2s;
+}
+.btn--confirm:hover { opacity: 0.85; }
+
+/* Cancel — white fill, yellow border, same size */
+.btn--cancel {
+  background: #ffffff;
+  color: #1D1B20;
+  border: 2px solid #F4CE14;
+  border-radius: 16px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  min-width: 140px;
+  transition: background 0.2s;
+}
+.btn--cancel:hover { background: #fffbe6; }
+
+@media (max-width: 600px) {
+  .confirmation-page__row { grid-template-columns: 1fr; gap: 0.2rem; }
+  .confirmation-page__actions { flex-direction: column; align-items: center; }
+  .btn--confirm, .btn--cancel { width: 100%; max-width: 280px; }
+}
+
+
+/* ════════════════════════════════════════════════════
+   SUCCESS PAGE — replace the existing SUCCESS PAGE
+   section in your booking.css with this
+   ════════════════════════════════════════════════════ */
+
+/* ─── SUCCESS HERO ──────────────────────────────────── */
+.success-hero {
+  background: #495E57;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 280px;
+  overflow: visible;        /* let image bleed below green band */
+  position: relative;
+  z-index: 0;
+}
+
+.success-hero__text {
+  padding: 3rem 2rem 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.5rem;
+  align-self: center;
+}
+.success-hero__text h1 {
+  font-family: 'Markazi Text', Georgia, serif;
+  font-size: 3rem;
+  color: #F4CE14;
+  line-height: 1;
+  margin: 0;
+}
+.success-hero__text h2 {
+  font-family: 'Markazi Text', Georgia, serif;
+  font-size: 1.6rem;
+  color: #ffffff;
+  margin: 0;
+}
+.success-hero__text p {
+  color: #ffffff;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0.5rem 0 0;
+  max-width: 30ch;
+}
+
+/* Image floats over green, extends ~60px below into white area */
+.success-hero__image {
+  background-color: #FBDABB;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  margin: 2rem 3rem -60px 0;  /* negative bottom = overflow effect */
+  align-self: stretch;
+  min-height: 260px;
+  position: relative;
+  z-index: 1;                  /* sit on top of white content */
+}
+
+/* ─── SUCCESS PAGE BODY ─────────────────────────────── */
+.success-page {
+  background: #ffffff;
+  width: 100%;
+  padding: 5rem 2rem 5rem;     /* extra top padding to clear the overflowing image */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+/* ─── PEACH CARD ────────────────────────────────────── */
+.success-card {
+  background: #fdf3ec;
+  border-radius: 24px;
+  padding: 4rem 3rem;
+  max-width: 700px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.success-card h2 {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-weight: 700;
+  color: #1D1B20;
+  line-height: 1.35;
+  margin: 0;
+}
+.success-card h3 {
+  font-family: 'Karla', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-weight: 400;
+  color: #333;
+  margin: 0;
+}
+
+/* ─── HOMEPAGE BUTTON — white bg, YELLOW border ─────── */
+.success-page__action { text-align: center; }
+
+.btn--homepage {
+  background: #ffffff;
+  color: #1D1B20;
+  border: 2px solid #F4CE14;   /* yellow border to match Figma */
+  border-radius: 16px;
+  padding: 0.75rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  min-width: 160px;
+  transition: background 0.2s, color 0.2s;
+}
+.btn--homepage:hover {
+  background: #F4CE14;
+  color: #1D1B20;
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media (max-width: 700px) {
+  .success-hero {
+    grid-template-columns: 1fr;
+  }
+  .success-hero__text { padding: 2rem 1.5rem 1.5rem; }
+  .success-hero__image {
+    min-height: 220px;
+    margin: 0 1.5rem -40px;
+    border-radius: 12px;
+  }
+  .success-page { padding-top: 4rem; }
+  .success-card { padding: 2.5rem 1.5rem; }
+}
