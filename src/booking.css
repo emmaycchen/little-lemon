@@ -506,3 +506,15 @@
   .success-page { padding-top: 4rem; }
   .success-card { padding: 2.5rem 1.5rem; }
 }
+
+/* Booking Slot List */
+.timeslot--booked {
+  opacity: 0.4;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+.timeslot__status {
+  margin-left: 6px;
+  font-size: 0.75rem;
+}

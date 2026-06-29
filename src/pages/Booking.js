@@ -1,17 +1,23 @@
-import '../booking.css'; 
-import { useState } from 'react';
+import '../booking.css';
+import { useState, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 
-const TIME_SLOTS = [
-  '11:00 AM', '6:00 PM',
-  '11:30 AM', '6:30 PM',
-  '12:00 PM', '7:00 PM',
-  '12:30 PM', '7:30 PM',
-];
-
 const DAYS = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+
+function initializeTimes() {
+  return window.fetchAPI(new Date());
+}
+
+function updateTimes(state, action) {
+  switch (action.type) {
+    case 'UPDATE_TIMES':
+      return window.fetchAPI(new Date(action.date));
+    default:
+      return state;
+  }
+}
 
 const NAV_ROUTES = {
   'Home':         '/',
@@ -39,6 +45,41 @@ function BookingNav() {
         </ul>
       </div>
     </nav>
+  );
+}
+
+// 單一時段元件
+function BookingSlot({ time, isBooked }) {
+  return (
+    <div
+      className={`booking-slot ${isBooked ? 'booking-slot--booked' : 'booking-slot--available'}`}
+      aria-label={`${time} is ${isBooked ? 'booked' : 'available'}`}
+    >
+      <span className="booking-slot__time">{time}</span>
+      <span className="booking-slot__status">
+        {isBooked ? '🔴 Booked' : '🟢 Available'}
+      </span>
+    </div>
+  );
+}
+
+// 所有時段的列表
+function BookingSlotList({ allTimes, availableTimes, selectedDate }) {
+  if (!selectedDate) return null;
+
+  return (
+    <div className="booking-slot-list">
+      <h3>Availability for {selectedDate.toLocaleDateString('en-GB', {
+        weekday: 'short', day: 'numeric', month: 'long'
+      })}</h3>
+      {allTimes.map(time => (
+        <BookingSlot
+          key={time}
+          time={time}
+          isBooked={!availableTimes.includes(time)}
+        />
+      ))}
+    </div>
   );
 }
 
@@ -86,24 +127,55 @@ function Calendar({ selectedDate, onSelect }) {
         {DAYS.map(d => (
           <div key={d} className="calendar__day-label">{d}</div>
         ))}
-        {cells.map((cell, i) => (
-          <div
-            key={i}
-            className={`calendar__cell ${!cell.current ? 'calendar__cell--muted' : ''} ${isSameDay(cell) ? 'calendar__cell--selected' : ''}`}
-            onClick={() => { if (cell.current) onSelect(new Date(year, month, cell.day)); }}
-          >
-            {cell.day}
-          </div>
-        ))}
-      </div>
+      {cells.map((cell, i) => {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const cellDate = new Date(year, month, cell.day);
+      const isPast = cell.current && cellDate < today;
+
+      return (
+        <div
+          key={i}
+          className={[
+            'calendar__cell',
+            isPast ? 'calendar__cell--muted' : '',
+            isSameDay(cell) ? 'calendar__cell--selected' : '',
+          ].join(' ')}
+          onClick={() => {
+            if (!isPast) {
+              if (!cell.current) {
+                // 判斷是上個月還是下個月的日期
+                const newMonth = cell.day < 15 ? month + 1 : month -1;
+                const newDate = new Date(year, newMonth, cell.day);
+                setViewDate(new Date(year, newMonth, 1));
+                onSelect(newDate);
+              } else {
+                onSelect(new Date(year, month, cell.day));
+              }
+            }
+        }}
+          aria-label={cell.current ? `${year}-${month + 1}-${cell.day}` : undefined}
+          aria-disabled={isPast ? 'true' : undefined}
+        >
+          {cell.day}
+        </div>
+      );
+    })}
     </div>
-  );
-}
+    </div>
+    );
+    }
 
 export default function Booking() {
   const navigate = useNavigate();
+  const [availableTimes, dispatch] = useReducer(updateTimes, null, initializeTimes);
+  const [bookingData, setBookingData] = useState(() => {
+    const saved = localStorage.getItem('bookingData');
+    return saved ? JSON.parse(saved) : [];
+  });
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState('');
+  const [allTimes, setAllTimes] = useState(availableTimes);
   const [form, setForm] = useState({
     guests: '', occasion: '', name: '', email: '', instructions: '',
   });
@@ -125,9 +197,20 @@ export default function Booking() {
       alert('Please select a date and time.');
       return;
     }
-    navigate('/confirmation', {
-      state: { date: formatDate(selectedDate), time: selectedTime, ...form }
-    });
+    const formData = {
+      date: formatDate(selectedDate),
+      time: selectedTime,
+      ...form
+    };
+    const result = window.submitAPI(formData);
+    if (result) {
+      const updatedData = [...bookingData, formData];
+      setBookingData(updatedData);
+      localStorage.setItem('bookingData', JSON.stringify(updatedData));
+      navigate('/confirmation', {state: formData});
+    } else {
+      alert('Booking failed. Please try again.');
+    }
   }
 
   return (
@@ -148,27 +231,45 @@ export default function Booking() {
           To book a reservation, please fill-out this form.
         </p>
 
-        <form onSubmit={handleSubmit} noValidate>
+        <form onSubmit={handleSubmit} noValidate aria-label="Reservation booking form">
 
           {/* Date + Time */}
           <section className="booking-page__section">
             <h2 className="booking-page__label">Select Date / Time*</h2>
             <div className="booking-page__datetime">
-              <Calendar selectedDate={selectedDate} onSelect={setSelectedDate} />
+              <Calendar
+              selectedDate={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date);
+                const dateStr = date.toISOString().split('T')[0];
+                const times = window.fetchAPI(new Date(dateStr));
+                setAllTimes(times);
+                dispatch({ type: 'UPDATE_TIMES', date: dateStr});
+              }}
+              />
 
               <div className="booking-page__timeslots">
                 <h3>Time</h3>
                 <div className="timeslot-grid">
-                  {TIME_SLOTS.map(t => (
+                  {allTimes.map(t => {
+                    const isAvailable = availableTimes.includes(t);
+                    return(
                     <button
                       key={t}
                       type="button"
-                      className={`timeslot${selectedTime === t ? ' timeslot--selected' : ''}`}
+                      aria-label={`${t} ${isAvailable ? 'available' : 'booked'}`}
+                      className={[
+                        'timeslot',
+                        selectedTime === t ? 'timeslot--selected' : '',
+                        !isAvailable ? 'timeslot--booked' : '',
+                      ].join(' ')}
+                      disabled={!isAvailable}
                       onClick={() => setSelectedTime(t)}
                     >
                       {t}
                     </button>
-                  ))}
+                    );
+      })}
                 </div>
 
                 {selectedDate && selectedTime && (
@@ -227,7 +328,7 @@ export default function Booking() {
             </div>
 
             <div className="booking-form__submit">
-              <button type="submit" className="btn btn--yellow">
+              <button type="submit" className="btn btn--yellow" aria-label="Confirm Reservation">
                 Confirm Reservation
               </button>
             </div>
